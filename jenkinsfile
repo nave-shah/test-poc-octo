@@ -13,9 +13,18 @@ pipeline {
 
         stage ('Build') {
             steps {
-                bat 'set'
-                bat $BRANCH_NAME
+               script {
+                   def fields = env.getEnvironment()
+                   fields.each {
+                        key, value -> println("${key} = ${value}");
+                    }
+ 
+                    println(env.BRANCH_NAME)
+               }
+                
             }
+
+            
         }
 
         // stage ('Deploy to Octopus') {
