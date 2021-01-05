@@ -14,7 +14,7 @@ pipeline {
         stage ('Build') {
             steps {
                 bat 'set'
-                echo $BRANCH_NAME
+                bat $BRANCH_NAME
             }
         }
 
