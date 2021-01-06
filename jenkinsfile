@@ -27,16 +27,20 @@ pipeline {
             
         }
 
-        // stage ('Deploy to Octopus') {
-        //     steps {
-        //         withCredentials([string(credentialsId: 'OctopusAPIKey', variable: 'APIKey')]) {
-        //             sh """
-        //                 ${tool('Octo CLI')}/Octo push --package target/demo.0.0.1-SNAPSHOT.war --replace-existing --server https://youroctopusserver --apiKey ${APIKey}
-        //                 ${tool('Octo CLI')}/Octo create-release --project "Thymeleaf Demo" --server https://youroctopusserver --apiKey ${APIKey}
-        //                 ${tool('Octo CLI')}/Octo deploy-release --project "Thymeleaf Demo" --version latest --deployto Integration --server https://youroctopusserver --apiKey ${APIKey}
-        //             """
-        //         }
-        //     }
-        // }
+        stage ('Deploy to Octopus') {
+            steps {
+                withCredentials([string(credentialsId: 'OctopusAPIKey', variable: 'APIKey')]) {
+                    bat '
+                        push --server http://localhost:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package DB\artifacts\applicationformv2-feature3-db.2.0.1.%BUILD_NUMBER%.zip --package artifacts\applicationformv2-feature3-ui.2.0.1.%BUILD_NUMBER%.zip
+                        "C:\Octopus\Tools\OctopusTools.4.41.2\Octo.exe" push --server http://localhost:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package DB\artifacts\applicationformv2-feature3-db.2.0.1.%BUILD_NUMBER%.zip --package artifacts\applicationformv2-feature3-ui.2.0.1.%BUILD_NUMBER%.zip
+                    '
+                    // sh """
+                    //     ${tool('Octo CLI')}/Octo push --package target/demo.0.0.1-SNAPSHOT.war --replace-existing --server https://youroctopusserver --apiKey ${APIKey}
+                    //     ${tool('Octo CLI')}/Octo create-release --project "Thymeleaf Demo" --server https://youroctopusserver --apiKey ${APIKey}
+                    //     ${tool('Octo CLI')}/Octo deploy-release --project "Thymeleaf Demo" --version latest --deployto Integration --server https://youroctopusserver --apiKey ${APIKey}
+                    // """
+                }
+            }
+        }
     }
 }
