@@ -44,6 +44,14 @@ pipeline {
             
         }
 
+        stage ('pack it up'){
+            steps {
+                bat '''
+                    octo pack --id="MyPackage" --format="zip" --version="1.0.0.0" --basePath="src" --outFolder="targets/package-%BRANCH_NAME%-%BUILD_NUMBER%"
+                '''
+            }
+        }
+
         stage ('Push Package to Octopus') {
             steps {
                     bat '''
