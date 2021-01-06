@@ -47,7 +47,7 @@ pipeline {
         stage ('pack it up'){
             steps {
                 bat '''
-                    octo pack --id="MyPackage" --format="zip" --version="1.0.0.0" --basePath="src" --outFolder="targets/package-%BRANCH_NAME%-%BUILD_NUMBER%"
+                    octo pack --id="package-%BRANCH_NAME%-%BUILD_NUMBER%" --format="zip" --version="1.0.0.0" --basePath="src" --outFolder="targets/"
                 '''
             }
         }
@@ -55,7 +55,7 @@ pipeline {
         stage ('Push Package to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/archive.3.1.5.zip
+                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/package-%BRANCH_NAME%-%BUILD_NUMBER%
                     '''
             }
         }
