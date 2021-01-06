@@ -28,7 +28,7 @@ pipeline {
 
         stage ('Deploy to Octopus') {
             steps {
-                withCredentials([string(credentialsId: 'OctopusAPIKey', variable: 'APIKey')]) {
+                // withCredentials([string(credentialsId: 'OctopusAPIKey', variable: 'APIKey')]) {
                     bat '''
                         
                         "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/Archive.zip.%BUILD_NUMBER% --channel Feature1 --project poc-to-be-deleted
@@ -41,7 +41,7 @@ pipeline {
                     //     ${tool('Octo CLI')}/Octo create-release --project "Thymeleaf Demo" --server https://youroctopusserver --apiKey ${APIKey}
                     //     ${tool('Octo CLI')}/Octo deploy-release --project "Thymeleaf Demo" --version latest --deployto Integration --server https://youroctopusserver --apiKey ${APIKey}
                     // """
-                }
+                // }
             }
         }
     }
