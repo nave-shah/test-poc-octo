@@ -34,7 +34,7 @@ pipeline {
                     
                 // def file = new File('target/archieve.zip')
                 // file.renameTo 'newname.groovy'
-                def newFile = new File('target/archieve_%BUILD_NUMBER%.zip')
+                def newFile = new File('target/archieve_'+env.BUILD_NUMBER+'.zip')
                 println("generated -------------")
                 println(zipString)
                }
