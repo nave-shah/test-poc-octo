@@ -34,6 +34,8 @@ pipeline {
                     
                 String inString = 'whatever'
                 String zipString = zip(inString)
+                println("generated -------------")
+                println(zipString)
                }
                 
             }
