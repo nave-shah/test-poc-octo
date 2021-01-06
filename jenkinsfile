@@ -1,6 +1,14 @@
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
-
+def zip(String s){
+                        def targetStream = new ByteArrayOutputStream()
+                        def zipStream = new GZIPOutputStream(targetStream)
+                        zipStream.write(s.getBytes('UTF-8'))
+                        zipStream.close()
+                        def zippedBytes = targetStream.toByteArray()
+                        targetStream.close()
+                        return zippedBytes.encodeBase64()
+                    }
 pipeline {
     agent any
     tools {
@@ -23,15 +31,7 @@ pipeline {
                     }
                     println(env.BRANCH_NAME)
 
-                    def zip(String s){
-                        def targetStream = new ByteArrayOutputStream()
-                        def zipStream = new GZIPOutputStream(targetStream)
-                        zipStream.write(s.getBytes('UTF-8'))
-                        zipStream.close()
-                        def zippedBytes = targetStream.toByteArray()
-                        targetStream.close()
-                        return zippedBytes.encodeBase64()
-                    }
+                    
                 String inString = 'whatever'
                 String zipString = zip(inString)
                }
