@@ -55,7 +55,7 @@ pipeline {
         stage ('Push Package to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/package-%BRANCH_NAME%.%BUILD_NUMBER%
+                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/package-%BRANCH_NAME%.%BUILD_NUMBER%.zip
                     '''
             }
         }
