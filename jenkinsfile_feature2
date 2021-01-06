@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.5.2'
+        jdk 'Java 9'
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                bat 'set'
+            }
+        }
+
+        stage ('Build') {
+            steps {
+               script {
+                   def fields = env.getEnvironment()
+                   fields.each {
+                        key, value -> println("${key} = ${value}");
+                    }
+                    println(env.BRANCH_NAME)
+               }
+                
+            }
+
+            
+        }
+
+        stage ('Push Package to Octopus') {
+            steps {
+                    bat '''
+                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/archive.3.1.4.zip
+                    '''
+            }
+        }
+
+        stage ('Create Release to Octopus') {
+            steps {
+                    bat '''
+                        "Octo.exe" create-release --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package archive.3.1.4.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project poc-to-be-deleted
+                    '''
+            }
+        }
+    }
+}
