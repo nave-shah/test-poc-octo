@@ -32,8 +32,9 @@ pipeline {
                     println(env.BRANCH_NAME)
 
                     
-                String inString = 'whatever'
-                String zipString = zip(inString)
+                // def file = new File('target/archieve.zip')
+                // file.renameTo 'newname.groovy'
+                def newFile = new File('target/archieve_%BUILD_NUMBER%.zip')
                 println("generated -------------")
                 println(zipString)
                }
