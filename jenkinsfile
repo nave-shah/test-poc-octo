@@ -31,7 +31,7 @@ pipeline {
                     {
                         println(env.BRANCH_NAME)
                         environment { 
-                                SUFFIX          = "-"+env.BRANCH_NAME
+                                env.SUFFIX          = "-"+env.BRANCH_NAME
                         }
                         println("SUFFIX is "+env.SUFFIX)
                     }
