@@ -17,6 +17,8 @@ pipeline {
     }
     environment {
         PROJECT_NAME = 'POC-Test'
+        SERVER_OCTO = 'http://cat-build:8083'
+        API_KEY = 'API-S17GGX3TBI3CFO0MKDEPK56F2NY'
     }
     stages {
         stage ('Initialize') {
@@ -41,7 +43,7 @@ pipeline {
             
         }
 
-        stage ('pack it up'){
+        stage ('Build Package'){
             steps {
                 bat '''
                     octo pack --id="package-%BRANCH_NAME%" --format="zip" --version="%BUILD_NUMBER%" --basePath="src" --outFolder="targets/"
@@ -52,7 +54,7 @@ pipeline {
         stage ('Push Package to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" push --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package targets/package-%BRANCH_NAME%.%BUILD_NUMBER%.zip
+                        "Octo.exe" push --server %SERVER_OCTO% --apiKey %API_KEY% --package targets/package-%BRANCH_NAME%.%BUILD_NUMBER%.zip
                     '''
             }
         }
@@ -60,7 +62,7 @@ pipeline {
         stage ('Create Release to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" create-release --server http://cat-build:8083 --apiKey API-S17GGX3TBI3CFO0MKDEPK56F2NY --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%
+                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%
                     '''
             }
         }
