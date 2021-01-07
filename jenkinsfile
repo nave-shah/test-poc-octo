@@ -28,6 +28,7 @@ pipeline {
                     println(env.BUILD_NUMBER)
                     if(env.BRANCH_NAME != "main")
                     {
+                        println(env.BRANCH_NAME)
                         env.SUFFIX          = env.BRANCH_NAME
                     }
                     
