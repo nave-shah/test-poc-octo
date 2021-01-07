@@ -29,7 +29,10 @@ pipeline {
                     if(env.BRANCH_NAME != "main")
                     {
                         println(env.BRANCH_NAME)
-                        SUFFIX          = "-"+env.BRANCH_NAME
+                        environment { 
+                                SUFFIX          = "-"+env.BRANCH_NAME
+                        }
+                        
                     }
                     
                     
