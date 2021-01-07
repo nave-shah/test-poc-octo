@@ -22,6 +22,7 @@ pipeline {
                script {
                    def fields = env.getEnvironment()
                    def SUFFIX          = ""
+                   def major           = 1
                    fields.each {
                         key, value -> println("${key} = ${value}");
                     }
@@ -35,6 +36,7 @@ pipeline {
         
                         println("SUFFIX is "+env.SUFFIX)
                     }
+                    env.major = 1
                     
                     
                }
@@ -66,6 +68,10 @@ pipeline {
                         "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%%SUFFIX%
                     '''
                     // --version %BRANCH_NAME%.%BUILD_NUMBER%
+                    
+               script {
+                    env.major = env.major++
+               }
             }
         }
     }
