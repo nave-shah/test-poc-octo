@@ -8,7 +8,7 @@ pipeline {
         PROJECT_NAME    = 'POC-Test'
         SERVER_OCTO     = 'http://cat-build:8083'
         API_KEY         = 'API-S17GGX3TBI3CFO0MKDEPK56F2NY'
-        SUFFIX          = ""
+ 
     }
     stages {
         stage ('Initialize') {
@@ -21,6 +21,7 @@ pipeline {
             steps {
                script {
                    def fields = env.getEnvironment()
+                   def SUFFIX          = ""
                    fields.each {
                         key, value -> println("${key} = ${value}");
                     }
@@ -32,7 +33,7 @@ pipeline {
                         environment { 
                                 SUFFIX          = "-"+env.BRANCH_NAME
                         }
-                        
+                        println("SUFFIX is "+env.SUFFIX)
                     }
                     
                     
