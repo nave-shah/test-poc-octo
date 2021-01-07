@@ -51,7 +51,7 @@ pipeline {
         stage ('Create Release to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   
+                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%-%BRANCH_NAME%
                     '''
                     // --version %BRANCH_NAME%.%BUILD_NUMBER%
             }
