@@ -29,7 +29,7 @@ pipeline {
                     if(env.BRANCH_NAME != "main")
                     {
                         println(env.BRANCH_NAME)
-                        env.SUFFIX          = env.BRANCH_NAME
+                        SUFFIX          = "-"+env.BRANCH_NAME
                     }
                     
                     
@@ -59,7 +59,7 @@ pipeline {
         stage ('Create Release to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%-%SUFFIX%
+                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%%SUFFIX%
                     '''
                     // --version %BRANCH_NAME%.%BUILD_NUMBER%
             }
