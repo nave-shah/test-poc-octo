@@ -22,6 +22,7 @@ pipeline {
                script {
                    def fields = env.getEnvironment()
                    def SUFFIX          = ""
+                   def major           = 1
                    fields.each {
                         key, value -> println("${key} = ${value}");
                     }
@@ -31,10 +32,12 @@ pipeline {
                     {
                         println(env.BRANCH_NAME)
                         
-                        env.SUFFIX          = "-"+env.BRANCH_NAME
+                        env.SUFFIX          =  "--version "+env.BUILD_NUMBER+"-"+env.BRANCH_NAME
         
                         println("SUFFIX is "+env.SUFFIX)
                     }
+                    env.major = 1
+                    println("SUFFIX is "+env.SUFFIX)
                     
                     
                }
@@ -63,9 +66,13 @@ pipeline {
         stage ('Create Release to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%%SUFFIX%
+                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   %SUFFIX%
                     '''
                     // --version %BRANCH_NAME%.%BUILD_NUMBER%
+                    
+               script {
+                    env.major = env.major++
+               }
             }
         }
     }
