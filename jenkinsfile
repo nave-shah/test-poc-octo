@@ -8,6 +8,7 @@ pipeline {
         PROJECT_NAME    = 'POC-Test'
         SERVER_OCTO     = 'http://cat-build:8083'
         API_KEY         = 'API-S17GGX3TBI3CFO0MKDEPK56F2NY'
+        SUFFIX          = ""
     }
     stages {
         stage ('Initialize') {
@@ -25,6 +26,12 @@ pipeline {
                     }
                     println(env.BRANCH_NAME)
                     println(env.BUILD_NUMBER)
+                    if(env.BRANCH_NAME != "main")
+                    {
+                        env.SUFFIX          = env.BRANCH_NAME
+                    }
+                    
+                    
                }
                 
             }
@@ -51,7 +58,7 @@ pipeline {
         stage ('Create Release to Octopus') {
             steps {
                     bat '''
-                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%-%BRANCH_NAME%
+                        "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   --version %BUILD_NUMBER%-%SUFFIX%
                     '''
                     // --version %BRANCH_NAME%.%BUILD_NUMBER%
             }
