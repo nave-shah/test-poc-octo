@@ -16,9 +16,9 @@ pipeline {
         jdk 'Java 9'
     }
     environment {
-        PROJECT_NAME = 'POC-Test'
-        SERVER_OCTO = 'http://cat-build:8083'
-        API_KEY = 'API-S17GGX3TBI3CFO0MKDEPK56F2NY'
+        PROJECT_NAME    = 'POC-Test'
+        SERVER_OCTO     = 'http://cat-build:8083'
+        API_KEY         = 'API-S17GGX3TBI3CFO0MKDEPK56F2NY'
     }
     stages {
         stage ('Initialize') {
