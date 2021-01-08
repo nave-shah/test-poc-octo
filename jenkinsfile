@@ -36,7 +36,6 @@ pipeline {
                         println("SUFFIX is "+env.SUFFIX)
                     }
 
-                                     println("SUFFIX is    
                }
                 
             }
