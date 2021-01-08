@@ -36,6 +36,7 @@ pipeline {
                         println("SUFFIX is "+env.SUFFIX)
                     }
 
+                    println("rebuil is "+env.SUFFIX)
                }
                 
             }
