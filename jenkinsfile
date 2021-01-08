@@ -36,10 +36,7 @@ pipeline {
         
                         println("SUFFIX is "+env.SUFFIX)
                     }
-                    env.major = 1
-                    println("SUFFIX is "+env.SUFFIX+" rebuild main ")
-                    
-                    
+                                        
                }
                 
             }
@@ -68,7 +65,7 @@ pipeline {
                     bat '''
                         "Octo.exe" create-release --server %SERVER_OCTO% --apiKey %API_KEY% --package archive.3.1.5.zip:%BUILD_NUMBER% --channel %BRANCH_NAME% --project %PROJECT_NAME%   %SUFFIX%
                     '''
-                    // --version %BRANCH_NAME%.%BUILD_NUMBER%
+                
                     
                script {
                     env.major = env.major++
