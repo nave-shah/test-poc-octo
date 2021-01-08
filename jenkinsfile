@@ -67,9 +67,9 @@ pipeline {
                     '''
                 
                     
-               script {
-                    env.major = env.major++
-               }
+            //    script {
+            //         env.major = env.major++
+            //    }
             }
         }
     }
