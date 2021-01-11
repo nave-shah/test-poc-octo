@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven 3.5.2'
-        jdk 'Java 9'
-    }
+    // tools {
+    //     maven 'Maven 3.5.2'
+    //     jdk 'Java 9'
+    // }
     environment {
         PROJECT_NAME    = 'POC-Test'
         SERVER_OCTO     = 'http://cat-build:8083'
